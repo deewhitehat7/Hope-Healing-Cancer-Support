@@ -1,0 +1,11 @@
+# Prevent direct access to PHP files
+<FilesMatch "\.(php)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Allow only process.php to be accessed
+<Files process.php>
+    Order allow,deny
+    Allow from all
+</Files>

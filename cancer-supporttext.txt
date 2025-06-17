@@ -1,0 +1,9 @@
+﻿cancer-support/
+├── donations/
+│   ├── process.php       # Payment processing
+│   ├── success.php       # Thank you page
+│   └── webhook.php       # Payment notifications
+├── assets/
+│   ├── images/
+│   │   ├── donation-hero.jpg
+│   │   └── payment-methods.png
