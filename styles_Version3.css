@@ -1,0 +1,46 @@
+/* Smooth page transitions */
+body {
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* Animate sections as they appear */
+section {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.8s forwards;
+}
+
+/* Staggered section animations */
+section:nth-of-type(2) {
+  animation-delay: 0.2s;
+}
+section:nth-of-type(3) {
+  animation-delay: 0.4s;
+}
+section:nth-of-type(4) {
+  animation-delay: 0.6s;
+}
+section:nth-of-type(5) {
+  animation-delay: 0.8s;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Animate nav links on hover */
+nav a:hover {
+  color: #ffe6f0;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.4);
+}
+
+/* Slight button lift */
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  background: #c2185b;
+  transition: background 0.3s ease, transform 0.2s, box-shadow 0.2s;
+}
