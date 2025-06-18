@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HopeCare – Cancer Support & Awareness</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #4a90e2;
+      --accent-color: #e91e63;
+      --light-color: #f8f9fa;
+      --text-color: #333;
+      --white: #fff;
+      --shadow: 0 4px 16px rgba(74,144,226,0.08);
+      --transition: all 0.3s ease;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      background: var(--light-color);
+      color: var(--text-color);
+      font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      min-height: 100vh;
+      transition: var(--transition);
+      line-height: 1.6;
+    }
+    
+    /* Header Styles */
+    header {
+      background: var(--white);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      padding: 1.5rem 0;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      transition: var(--transition);
+    }
+    
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    header h1 {
+      color: var(--primary-color);
+      margin-bottom: 0.2em;
+      font-size: 2.2rem;
+      font-weight: 700;
+      transition: var(--transition);
+    }
+    
+    header p {
+      color: var(--accent-color);
+      margin-bottom: 1em;
+      font-weight: 500;
+    }
+    
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 0.5rem;
+    }
+    
+    nav a {
+      color: var(--primary-color);
+      text-decoration: none;
+      font-weight: 500;
+      transition: var(--transition);
+      position: relative;
+      padding: 0.3rem 0;
+    }
+    
+    nav a:hover,
+    nav a:focus {
+      color: var(--accent-color);
+    }
+    
+    nav a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: 0;
+      left: 0;
+      background-color: var(--accent-color);
+      transition: var(--transition);
+    }
+    
+    nav a:hover::after {
+      width: 100%;
+    }
+    
+    /* Hero Section */
+    .hero {
+      margin-top: 120px;
+      position: relative;
+      height: 70vh;
+      min-height: 500px;
+      overflow: hidden;
+    }
+    
+    .hero-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.8);
+    }
+    
+    .hero-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      color: white;
+      width: 90%;
+      max-width: 800px;
+      z-index: 2;
+    }
+    
+    .hero-title {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+      animation: fadeInDown 1s ease-out;
+    }
+    
+    .hero-subtitle {
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+      animation: fadeInUp 1s ease-out 0.3s forwards;
+      opacity: 0;
+    }
+    
+    .hero-button {
+      display: inline-block;
+      background: var(--accent-color);
+      color: white;
+      padding: 1rem 2.5rem;
+      border-radius: 50px;
+      font-size: 1.2rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: var(--transition);
+      animation: fadeInUp 1s ease-out 0.6s forwards;
+      opacity: 0;
+      box-shadow: 0 4px 15px rgba(233,30,99,0.3);
+    }
+    
+    .hero-button:hover {
+      background: #c2185b;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(233,30,99,0.4);
+    }
+    
+    /* Main Content Sections */
+    main {
+      padding: 4rem 0;
+    }
+    
+    section {
+      max-width: 1200px;
+      margin: 3rem auto;
+      background: var(--white);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      padding: 3rem 2rem;
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: var(--transition);
+    }
+    
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    section:nth-child(even) {
+      background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+    }
+    
+    .section-header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+      position: relative;
+    }
+    
+    .section-header h2 {
+      color: var(--primary-color);
+      font-size: 2.2rem;
+      margin-bottom: 1rem;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .section-header h2::after {
+      content: '';
+      position: absolute;
+      width: 60px;
+      height: 4px;
+      background: var(--accent-color);
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 2px;
+    }
+    
+    .section-img {
+      display: block;
+      margin: 0 auto 2rem auto;
+      width: 120px;
+      height: 120px;
+      object-fit: contain;
+      border-radius: 20px;
+      background: #f2fafc;
+      box-shadow: 0 4px 15px rgba(74,144,226,0.15);
+      padding: 1rem;
+      transition: var(--transition);
+    }
+    
+    .section-img:hover {
+      transform: scale(1.1) rotate(5deg);
+    }
+    
+    /* About Section */
+    .about-content {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 3rem;
+    }
+    
+    .about-text {
+      flex: 1;
+      min-width: 300px;
+    }
+    
+    .about-image {
+      flex: 1;
+      min-width: 300px;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+      transition: var(--transition);
+    }
+    
+    .about-image:hover {
+      transform: scale(1.03);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+    }
+    
+    .about-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    
+    /* Learn Section */
+    .cancer-types {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    
+    .type-card {
+      background: white;
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      transition: var(--transition);
+      text-align: center;
+    }
+    
+    .type-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    }
+    
+    .type-icon {
+      font-size: 2.5rem;
+      color: var(--accent-color);
+      margin-bottom: 1rem;
+    }
+    
+    /* Stories Section */
+    .stories-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    
+    .story-card {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      transition: var(--transition);
+    }
+    
+    .story-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+    
+    .story-image {
+      height: 200px;
+      width: 100%;
+      object-fit: cover;
+    }
+    
+    .story-content {
+      padding: 1.5rem;
+    }
+    
+    .story-content h3 {
+      color: var(--primary-color);
+      margin-bottom: 0.5rem;
+    }
+    
+    .story-meta {
+      color: #666;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+    
+    .read-more {
+      color: var(--accent-color);
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      transition: var(--transition);
+    }
+    
+    .read-more i {
+      margin-left: 5px;
+      transition: var(--transition);
+    }
+    
+    .read-more:hover {
+      color: #c2185b;
+    }
+    
+    .read-more:hover i {
+      transform: translateX(5px);
+    }
+    
+    /* Support Section */
+    .resources-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    
+    .resource-card {
+      background: white;
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      transition: var(--transition);
+    }
+    
+    .resource-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+    
+    .resource-icon {
+      font-size: 2rem;
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+    }
+    
+    /* Contact Section */
+    .contact-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 3rem;
+      margin-top: 2rem;
+    }
+    
+    .contact-info {
+      flex: 1;
+      min-width: 300px;
+    }
+    
+    .contact-info h3 {
+      color: var(--primary-color);
+      margin-bottom: 1.5rem;
+    }
+    
+    .contact-details {
+      margin-bottom: 2rem;
+    }
+    
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+    }
+    
+    .contact-icon {
+      color: var(--accent-color);
+      margin-right: 1rem;
+      font-size: 1.2rem;
+      margin-top: 3px;
+    }
+    
+    .contact-form {
+      flex: 1;
+      min-width: 300px;
+    }
+    
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      color: var(--primary-color);
+    }
+    
+    .form-control {
+      width: 100%;
+      padding: 0.9rem;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      font-size: 1rem;
+      transition: var(--transition);
+      font-family: 'Poppins', sans-serif;
+    }
+    
+    .form-control:focus {
+      border-color: var(--primary-color);
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(74,144,226,0.2);
+    }
+    
+    textarea.form-control {
+      min-height: 150px;
+      resize: vertical;
+    }
+    
+    .submit-btn {
+      background: var(--accent-color);
+      color: white;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      width: 100%;
+    }
+    
+    .submit-btn:hover {
+      background: #c2185b;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(233,30,99,0.3);
+    }
+    
+    /* Footer */
+    footer {
+      background: linear-gradient(135deg, var(--primary-color) 0%, #2a6fc9 100%);
+      color: white;
+      padding: 3rem 0 1rem;
+      text-align: center;
+    }
+    
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+    
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-bottom: 2rem;
+      text-align: left;
+    }
+    
+    .footer-logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: white;
+    }
+    
+    .footer-about p {
+      margin-bottom: 1.5rem;
+      opacity: 0.9;
+    }
+    
+    .social-links {
+      display: flex;
+      gap: 1rem;
+    }
+    
+    .social-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+      color: white;
+      transition: var(--transition);
+    }
+    
+    .social-link:hover {
+      background: var(--accent-color);
+      transform: translateY(-3px);
+    }
+    
+    .footer-links h3 {
+      color: white;
+      margin-bottom: 1.5rem;
+      font-size: 1.3rem;
+    }
+    
+    .footer-links ul {
+      list-style: none;
+    }
+    
+    .footer-links li {
+      margin-bottom: 0.8rem;
+    }
+    
+    .footer-links a {
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    .footer-links a:hover {
+      color: white;
+      padding-left: 5px;
+    }
+    
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 1.5rem;
+      margin-top: 2rem;
+    }
+    
+    /* Animations */
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+    
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+      .hero-title {
+        font-size: 2.5rem;
+      }
+      
+      .hero-subtitle {
+        font-size: 1.2rem;
+      }
+      
+      section {
+        padding: 2rem 1rem;
+        margin: 2rem auto;
+        border-radius: 12px;
+      }
+      
+      .section-header h2 {
+        font-size: 1.8rem;
+      }
+      
+      .section-img {
+        width: 90px;
+        height: 90px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      header {
+        padding: 1rem 0;
+      }
+      
+      header h1 {
+        font-size: 1.8rem;
+      }
+      
+      nav {
+        gap: 1rem;
+      }
+      
+      .hero {
+        height: 60vh;
+        min-height: 400px;
+        margin-top: 90px;
+      }
+      
+      .hero-title {
+        font-size: 2rem;
+      }
+      
+      .hero-subtitle {
+        font-size: 1rem;
+      }
+      
+      .hero-button {
+        padding: 0.8rem 1.8rem;
+        font-size: 1rem;
+      }
+      
+      .section-header h2 {
+        font-size: 1.5rem;
+      }
+      
+      .section-img {
+        width: 70px;
+        height: 70px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="header-container">
+      <h1>HopeCare</h1>
+      <p>Empowering Hope. Inspiring Action.</p>
+      <nav>
+        <a href="#about">About</a>
+        <a href="#learn">Learn</a>
+        <a href="#stories">Stories</a>
+        <a href="#support">Resources</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <div class="hero">
+    <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+         alt="Group of people at cancer awareness event" class="hero-image">
+    <div class="hero-content">
+      <h1 class="hero-title">Together We Can Beat Cancer</h1>
+      <p class="hero-subtitle">Providing support, education, and hope to those affected by cancer</p>
+      <a href="#contact" class="hero-button">Get Involved</a>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <main>
+    <!-- About Section -->
+    <section id="about" class="visible">
+      <div class="section-header">
+        <img src="https://cdn-icons-png.flaticon.com/512/3209/3209266.png" alt="About HopeCare" class="section-img">
+        <h2>About Us</h2>
+        <p>HopeCare is dedicated to supporting individuals and families affected by cancer</p>
+      </div>
+      
+      <div class="about-content">
+        <div class="about-text">
+          <p>Founded in 2010, HopeCare has been a beacon of hope for thousands of cancer patients and their families. Our mission is to provide comprehensive support services, education, and resources to help navigate the challenges of cancer.</p>
+          <p>We believe no one should face cancer alone. Our team of dedicated professionals and volunteers work tirelessly to ensure every individual receives the care and support they need.</p>
+          <p>Through our programs and services, we aim to improve quality of life, provide emotional support, and empower individuals with knowledge and resources.</p>
+        </div>
+        <div class="about-image">
+          <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+               alt="HopeCare team supporting patients">
+        </div>
+      </div>
+    </section>
+
+    <!-- Learn Section -->
+    <section id="learn">
+      <div class="section-header">
+        <img src="https://cdn-icons-png.flaticon.com/512/2784/2784487.png" alt="Learn About Cancer" class="section-img">
+        <h2>Learn About Cancer</h2>
+        <p>Knowledge is power. Educate yourself about cancer prevention, detection, and treatment.</p>
+      </div>
+      
+      <div class="cancer-types">
+        <div class="type-card">
+          <div class="type-icon">
+            <i class="fas fa-lungs"></i>
+          </div>
+          <h3>Lung Cancer</h3>
+          <p>Learn about risk factors, early detection, and treatment options for lung cancer.</p>
+        </div>
+        
+        <div class="type-card">
+          <div class="type-icon">
+            <i class="fas fa-female"></i>
+          </div>
+          <h3>Breast Cancer</h3>
+          <p>Information about screening, diagnosis, and support for breast cancer patients.</p>
+        </div>
+        
+        <div class="type-card">
+          <div class="type-icon">
+            <i class="fas fa-prostate"></i>
+          </div>
+          <h3>Prostate Cancer</h3>
+          <p>Resources for men facing prostate cancer and their families.</p>
+        </div>
+        
+        <div class="type-card">
+          <div class="type-icon">
+            <i class="fas fa-child"></i>
+          </div>
+          <h3>Pediatric Cancer</h3>
+          <p>Support and information for families dealing with childhood cancer.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stories Section -->
+    <section id="stories">
+      <div class="section-header">
+        <img src="https://cdn-icons-png.flaticon.com/512/3227/3227060.png" alt="Real Stories" class="section-img">
+        <h2>Stories of Hope</h2>
+        <p>Real people sharing their cancer journeys and triumphs</p>
+      </div>
+      
+      <div class="stories-container">
+        <div class="story-card">
+          <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" 
+               alt="Sarah's story" class="story-image">
+          <div class="story-content">
+            <h3>Sarah's Journey</h3>
+            <p class="story-meta">Breast Cancer Survivor | 5 Years Remission</p>
+            <p>After my diagnosis, HopeCare became my second family. Their support groups helped me through my darkest days...</p>
+            <a href="#" class="read-more">Read Full Story <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+        
+        <div class="story-card">
+          <img src="https://images.unsplash.com/photo-1607990283143-e81e7a2c9349?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+               alt="Michael's story" class="story-image">
+          <div class="story-content">
+            <h3>Michael's Fight</h3>
+            <p class="story-meta">Lung Cancer Survivor | 3 Years Remission</p>
+            <p>The financial assistance program allowed me to focus on treatment without worrying about bills...</p>
+            <a href="#" class="read-more">Read Full Story <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+        
+        <div class="story-card">
+          <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+               alt="Emma's story" class="story-image">
+          <div class="story-content">
+            <h3>Emma's Courage</h3>
+            <p class="story-meta">Pediatric Cancer | 2 Years Remission</p>
+            <p>At just 8 years old, Emma faced leukemia with incredible bravery. The child life specialists at HopeCare...</p>
+            <a href="#" class="read-more">Read Full Story <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Support Section -->
+    <section id="support">
+      <div class="section-header">
+        <img src="https://cdn-icons-png.flaticon.com/512/3227/3227132.png" alt="Support and Resources" class="section-img">
+        <h2>Support & Resources</h2>
+        <p>Comprehensive assistance for patients and caregivers</p>
+      </div>
+      
+      <div class="resources-grid">
+        <div class="resource-card">
+          <div class="resource-icon">
+            <i class="fas fa-phone-alt"></i>
+          </div>
+          <h3>24/7 Helpline</h3>
+          <p>Our compassionate staff are available around the clock to provide support and answer questions.</p>
+          <p><strong>Call: 1-800-HOPE-CARE</strong></p>
+        </div>
+        
+        <div class="resource-card">
+          <div class="resource-icon">
+            <i class="fas fa-user-md"></i>
+          </div>
+          <h3>Find a Specialist</h3>
+          <p>Connect with oncologists, surgeons, and other cancer specialists in your area.</p>
+          <a href="#" class="read-more">Search Directory <i class="fas fa-arrow-right"></i></a>
+        </div>
+        
+        <div class="resource-card">
+          <div class="resource-icon">
+            <i class="fas fa-hand-holding-usd"></i>
+          </div>
+          <h3>Financial Aid</h3>
+          <p>Assistance programs to help with treatment costs, medications, and living expenses.</p>
+          <a href="#" class="read-more">Learn More <i class="fas fa-arrow-right"></i></a>
+        </div>
+        
+        <div class="resource-card">
+          <div class="resource-icon">
+            <i class="fas fa-heart"></i>
+          </div>
+          <h3>Mental Health</h3>
+          <p>Counseling and support groups for patients, survivors, and caregivers.</p>
+          <a href="#" class="read-more">View Services <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+      <div class="section-header">
+        <img src="https://cdn-icons-png.flaticon.com/512/3059/3059518.png" alt="Contact HopeCare" class="section-img">
+        <h2>Contact Us</h2>
+        <p>Reach out for support, questions, or to get involved</p>
+      </div>
+      
+      <div class="contact-container">
+        <div class="contact-info">
+          <h3>Our Information</h3>
+          
+          <div class="contact-details">
+            <div class="contact-item">
+              <div class="contact-icon">
+                <i class="fas fa-map-marker-alt"></i>
+              </div>
+              <div>
+                <h4>Address</h4>
+                <p>123 Hope Street, Suite 100<br>Boston, MA 02110</p>
+              </div>
+            </div>
+            
+            <div class="contact-item">
+              <div class="contact-icon">
+                <i class="fas fa-phone-alt"></i>
+              </div>
+              <div>
+                <h4>Phone</h4>
+                <p>1-800-HOPE-CARE<br>(1-800-467-3227)</p>
+              </div>
+            </div>
+            
+            <div class="contact-item">
+              <div class="contact-icon">
+                <i class="fas fa-envelope"></i>
+              </div>
+              <div>
+                <h4>Email</h4>
+                <p>info@hopecare.org</p>
+              </div>
+            </div>
+          </div>
+          
+          <h3>Office Hours</h3>
+          <p>Monday - Friday: 9:00 AM - 5:00 PM<br>
+          Saturday: 10:00 AM - 2:00 PM<br>
+          Sunday: Closed</p>
+        </div>
+        
+        <div class="contact-form">
+          <form id="contactForm">
+            <div class="form-group">
+              <label for="name">Your Name</label>
+              <input type="text" id="name" class="form-control" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" class="form-control" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="subject">Subject</label>
+              <input type="text" id="subject" class="form-control" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="message">Your Message</label>
+              <textarea id="message" class="form-control" required></textarea>
+            </div>
+            
+            <button type="submit" class="submit-btn">Send Message</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-content">
+        <div class="footer-about">
+          <div class="footer-logo">HopeCare</div>
+          <p>Providing hope, support, and resources to those affected by cancer since 2010.</p>
+          <div class="social-links">
+            <a href="#" class="social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-link" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-link" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+        
+        <div class="footer-links">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#learn">Cancer Information</a></li>
+            <li><a href="#stories">Patient Stories</a></li>
+            <li><a href="#support">Support Services</a></li>
+            <li><a href="#">Events</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-links">
+          <h3>Resources</h3>
+          <ul>
+            <li><a href="#">Financial Assistance</a></li>
+            <li><a href="#">Clinical Trials</a></li>
+            <li><a href="#">Caregiver Support</a></li>
+            <li><a href="#">Bereavement</a></li>
+            <li><a href="#">FAQ</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-links">
+          <h3>Get Involved</h3>
+          <ul>
+            <li><a href="#">Donate</a></li>
+            <li><a href="#">Volunteer</a></li>
+            <li><a href="#">Fundraise</a></li>
+            <li><a href="#">Corporate Partners</a></li>
+            <li><a href="#">Careers</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2023 HopeCare. All rights reserved. <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+        <p>HopeCare is a 501(c)(3) nonprofit organization. Tax ID: 12-3456789.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Animate sections as they come into view
+    const sections = document.querySelectorAll('section');
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+    
+    sections.forEach(section => {
+      observer.observe(section);
+    });
+    
+    // Smooth scrolling for navigation
+    document.querySelectorAll('nav a').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        const targetId = this.getAttribute('href');
+        const targetElement = document.querySelector(targetId);
+        
+        window.scrollTo({
+          top: targetElement.offsetTop - 100,
+          behavior: 'smooth'
+        });
+        
+        // Update URL without reload
+        history.pushState(null, null, targetId);
+      });
+    });
+    
+    // Contact form submission
+    const contactForm = document.getElementById('contactForm');
+    contactForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Get form values
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      
+      // Show success message
+      alert(Thank you, ${name}! We've received your message and will contact you at ${email} soon.);
+      
+      // Reset form
+      contactForm.reset();
+      
+      // Scroll to top
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    
+    // Header scroll effect
+    window.addEventListener('scroll', function() {
+      const header = document.querySelector('header');
+      if (window.scrollY > 50) {
+        header.style.padding = '0.5rem 0';
+        header.style.boxShadow = '0 2px 15px rgba(0,0,0,0.1)';
+      } else {
+        header.style.padding = '1.5rem 0';
+        header.style.boxShadow = '0 2px 10px rgba(0
