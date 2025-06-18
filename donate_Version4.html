@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donate – Hope & Healing Cancer Support</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+        .donate-section {
+            padding: 80px 0;
+            background: #f8f9fa;
+        }
+        .donate-form-container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(74,144,226,0.08);
+            padding: 40px 32px;
+        }
+        .donate-form-container h2 {
+            text-align: center;
+            color: #4a90e2;
+            margin-bottom: 10px;
+        }
+        .donate-form-container p {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        .donate-form label {
+            display: block;
+            margin: 0.5rem 0 0.2rem;
+            font-weight: 600;
+        }
+        .donate-form input {
+            width: 100%;
+            padding: 14px;
+            margin-bottom: 18px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        .donate-form button {
+            width: 100%;
+            background: #4a90e2;
+            color: #fff;
+            border: none;
+            padding: 14px;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s, box-shadow 0.2s;
+        }
+        .donate-form button:hover {
+            background: #3a7bc8;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+        @media (max-width: 600px) {
+            .donate-form-container {
+                padding: 20px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <div class="logo">Hope & <span>Healing</span></div>
+            <nav>
+                <div class="mobile-menu">☰</div>
+                <ul id="nav-menu">
+                    <li><a href="index.html#home">Home</a></li>
+                    <li><a href="index.html#about">About Cancer</a></li>
+                    <li><a href="index.html#treatments">Treatments</a></li>
+                    <li><a href="index.html#support">Support</a></li>
+                    <li><a href="index.html#resources">Resources</a></li>
+                    <li><a href="donate.html" class="btn btn-secondary">Donate</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="donate-section" id="donate">
+        <div class="container">
+            <div class="donate-form-container">
+                <h2>Make a Donation</h2>
+                <p>Your support provides hope, education, and vital care for cancer patients and families.</p>
+                <form id="donationForm" class="donate-form" autocomplete="off">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" required />
+
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required />
+
+                    <label for="amount">Donation Amount (NGN)</label>
+                    <input type="number" id="amount" name="amount" min="100" required />
+
+                    <button type="submit">Donate Now</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Hope & Healing</h3>
+                    <p>Providing support, information, and hope to cancer patients and their families since 2010.</p>
+                    <div class="social-links">
+                        <a href="#">f</a>
+                        <a href="#">t</a>
+                        <a href="#">in</a>
+                        <a href="#">yt</a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html#home">Home</a></li>
+                        <li><a href="index.html#about">About Cancer</a></li>
+                        <li><a href="index.html#treatments">Treatments</a></li>
+                        <li><a href="index.html#support">Support Groups</a></li>
+                        <li><a href="index.html#resources">Resources</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <li>123 Hope Street</li>
+                        <li>Boston, MA 02115</li>
+                        <li>Phone: (800) 555-4673</li>
+                        <li>Email: help@hopeandhealing.org</li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Make a Difference</h3>
+                    <ul>
+                        <li><a href="donate.html">Donate</a></li>
+                        <li><a href="#">Volunteer</a></li>
+                        <li><a href="#">Fundraise</a></li>
+                        <li><a href="#">Partner With Us</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Hope & Healing Cancer Support. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://js.paystack.co/v1/inline.js"></script>
+    <script>
+        // Mobile Menu Toggle
+        document.querySelector('.mobile-menu').addEventListener('click', function() {
+            document.getElementById('nav-menu').classList.toggle('show');
+        });
+
+        // Paystack donation form integration
+        const form = document.getElementById('donationForm');
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            let handler = PaystackPop.setup({
+                key: 'pk_test_yourPublicKeyHere', // TODO: Replace with your Paystack public key
+                email: document.getElementById('email').value,
+                amount: document.getElementById('amount').value * 100, // NGN to Kobo
+                currency: 'NGN',
+                ref: '' + Math.floor(Math.random() * 1000000000 + 1),
+                metadata: {
+                    custom_fields: [
+                        {
+                            display_name: "Donor Name",
+                            variable_name: "donor_name",
+                            value: document.getElementById('name').value
+                        }
+                    ]
+                },
+                callback: function(response) {
+                    alert("Thank you for your donation! Reference: " + response.reference);
+                    form.reset();
+                },
+                onClose: function() {
+                    alert('Transaction cancelled.');
+                }
+            });
+            handler.openIframe();
+        });
+    </script>
+</body>
+</html>
