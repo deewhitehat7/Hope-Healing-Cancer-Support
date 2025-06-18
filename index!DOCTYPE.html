@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HopeCare – Cancer Support & Awareness</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #4a90e2;
+      --accent-color: #e91e63;
+      --light-color: #f8f9fa;
+      --text-color: #333;
+      --white: #fff;
+      --shadow: 0 4px 16px rgba(74,144,226,0.08);
+      --dark-mode-bg: #121212;
+      --dark-mode-text: #e0e0e0;
+    }
+    body {
+      background: var(--light-color);
+      color: var(--text-color);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      min-height: 100vh;
+      transition: background 0.3s, color 0.3s;
+    }
+    body.dark-mode {
+      background: var(--dark-mode-bg);
+      color: var(--dark-mode-text);
+    }
+    header {
+      background: var(--white);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      padding: 1.5rem 0 1rem 0;
+      text-align: center;
+      position: relative;
+    }
+    .dark-mode header {
+      background: #1e1e1e;
+    }
+    header h1 {
+      color: var(--primary-color);
+      margin-bottom: 0.2em;
+      font-size: 2.5rem;
+    }
+    header p {
+      color: var(--accent-color);
+      margin-bottom: 1em;
+      font-size: 1.1rem;
+    }
+    nav {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    nav a {
+      color: var(--primary-color);
+      text-decoration: none;
+      margin: 0 1rem;
+      font-weight: 500;
+      transition: all 0.3s;
+      padding: 0.5rem;
+      border-radius: 5px;
+    }
+    .dark-mode nav a {
+      color: #7ab0ff;
+    }
+    nav a:hover,
+    nav a:focus {
+      color: var(--accent-color);
+      background: rgba(233,30,99,0.1);
+      transform: translateY(-2px);
+    }
+    .dark-mode nav a:hover {
+      color: #ff6b9d;
+    }
+    picture img {
+      width: 100%;
+      display: block;
+      max-height: 340px;
+      object-fit: cover;
+      margin-bottom: 2rem;
+      border-bottom-left-radius: 16px;
+      border-bottom-right-radius: 16px;
+      transition: transform 0.3s;
+    }
+    picture img:hover {
+      transform: scale(1.01);
+    }
+    section {
+      max-width: 700px;
+      margin: 2.5rem auto;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      padding: 2rem 1.5rem 2.5rem 1.5rem;
+      position: relative;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 0.9s forwards;
+      transition: all 0.3s;
+    }
+    .dark-mode section {
+      background: #1e1e1e;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+    }
+    section:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 24px rgba(74,144,226,0.15);
+    }
+    section:nth-of-type(2) { animation-delay: 0.2s; }
+    section:nth-of-type(3) { animation-delay: 0.4s; }
+    section:nth-of-type(4) { animation-delay: 0.6s; }
+    section:nth-of-type(5) { animation-delay: 0.8s; }
+
+    .section-img {
+      display: block;
+      margin: 0 auto 1.5rem auto;
+      width: 90px;
+      height: 90px;
+      object-fit: contain;
+      border-radius: 10px;
+      background: #f2fafc;
+      box-shadow: 0 2px 8px rgba(74,144,226,0.10);
+      transition: transform 0.3s;
+    }
+    .dark-mode .section-img {
+      background: #2a2a2a;
+    }
+    .section-img:hover {
+      transform: rotate(10deg) scale(1.1);
+    }
+    h2 {
+      color: var(--primary-color);
+      margin-bottom: 0.5em;
+    }
+    .dark-mode h2 {
+      color: #7ab0ff;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 1.3em 0;
+    }
+    ul li {
+      padding: 0.8em 0;
+      font-size: 1.06em;
+      border-bottom: 1px solid #f1f1f1;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+    .dark-mode ul li {
+      border-bottom: 1px solid #333;
+    }
+    ul li:hover {
+      background: rgba(74,144,226,0.05);
+      padding-left: 10px;
+      color: var(--primary-color);
+    }
+    .dark-mode ul li:hover {
+      background: rgba(74,144,226,0.1);
+    }
+    ul li:last-child { border-bottom: none; }
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1em;
+      margin-top: 1.2em;
+    }
+    input, textarea {
+      width: 90%;
+      padding: 0.9em;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 1em;
+      background: var(--light-color);
+      transition: all 0.3s;
+    }
+    .dark-mode input, 
+    .dark-mode textarea {
+      background: #2a2a2a;
+      border-color: #444;
+      color: var(--dark-mode-text);
+    }
+    input:focus, textarea:focus {
+      border-color: var(--primary-color);
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(74,144,226,0.2);
+    }
+    button {
+      background: var(--accent-color);
+      color: #fff;
+      border: none;
+      padding: 0.9em 2em;
+      border-radius: 6px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .dark-mode button {
+      background: #c2185b;
+    }
+    button:hover {
+      background: #c2185b;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.13);
+    }
+    .dark-mode button:hover {
+      background: #e91e63;
+    }
+    footer {
+      background: #eee;
+      color: #666;
+      text-align: center;
+      padding: 1.2rem 0 0.7rem;
+      font-size: 0.98rem;
+      margin-top: 2rem;
+    }
+    .dark-mode footer {
+      background: #1a1a1a;
+      color: #999;
+    }
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+    .pulse {
+      animation: pulse 2s infinite;
+    }
+    .theme-toggle {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--primary-color);
+      transition: transform 0.3s;
+    }
+    .theme-toggle:hover {
+      transform: rotate(30deg);
+    }
+    .dark-mode .theme-toggle {
+      color: #7ab0ff;
+    }
+    .back-to-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--accent-color);
+      color: white;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.5rem;
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s;
+      z-index: 100;
+    }
+    .back-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+    .back-to-top:hover {
+      background: #c2185b;
+      transform: translateY(-5px);
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.8);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-content {
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      max-width: 500px;
+      width: 90%;
+      position: relative;
+      animation: modalFadeIn 0.3s;
+    }
+    .dark-mode .modal-content {
+      background: #2a2a2a;
+      color: var(--dark-mode-text);
+    }
+    .close-modal {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--accent-color);
+    }
+    @keyframes modalFadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .resources-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    .resource-card {
+      background: #f5f9ff;
+      padding: 1rem;
+      border-radius: 8px;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+    .dark-mode .resource-card {
+      background: #2a2a2a;
+    }
+    .resource-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    .resource-card i {
+      font-size: 2rem;
+      color: var(--primary-color);
+      margin-bottom: 0.5rem;
+    }
+    .stories-carousel {
+      margin: 2rem auto;
+      max-width: 600px;
+      overflow: hidden;
+      position: relative;
+    }
+    .story {
+      padding: 1.5rem;
+      background: #f5f9ff;
+      border-radius: 10px;
+      margin-bottom: 1rem;
+      transition: all 0.3s;
+    }
+    .dark-mode .story {
+      background: #2a2a2a;
+    }
+    .story-author {
+      font-weight: bold;
+      color: var(--accent-color);
+      margin-top: 1rem;
+    }
+    .carousel-nav {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .carousel-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #ccc;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .carousel-dot.active {
+      background: var(--accent-color);
+      transform: scale(1.2);
+    }
+    @media (max-width: 700px) {
+      section { 
+        padding: 1.2rem 0.5rem 2rem 0.5rem; 
+        margin: 1.5rem auto;
+      }
+      input, textarea { width: 98%; }
+      header h1 { font-size: 2rem; }
+      .resources-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    @media (max-width: 480px) {
+      .section-img { width: 60px; height: 60px; }
+      nav a {
+        margin: 0 0.5rem;
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <button class="theme-toggle" aria-label="Toggle dark mode">
+      <i class="fas fa-moon"></i>
+    </button>
+    <h1>HopeCare</h1>
+    <p>Empowering Hope. Inspiring Action.</p>
+    <nav>
+      <a href="#about"><i class="fas fa-heart"></i> About</a>
+      <a href="#learn"><i class="fas fa-book"></i> Learn</a>
+      <a href="#stories"><i class="fas fa-users"></i> Stories</a>
+      <a href="#support"><i class="fas fa-hands-helping"></i> Resources</a>
+      <a href="#contact"><i class="fas fa-envelope"></i> Contact</a>
+    </nav>
+  </header>
+
+  <!-- Responsive Hero Image -->
+  <picture>
+    <source media="(max-width: 799px)" srcset="https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80">
+    <source media="(min-width: 800px)" srcset="https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80">
+    <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80" alt="Cancer support group">
+  </picture>
+
+  <section id="about">
+    <img src="https://cdn-icons-png.flaticon.com/512/3079/3079165.png" alt="About HopeCare" class="section-img" />
+    <h2>About Us</h2>
+    <p>HopeCare provides emotional, educational, and community support for people affected by cancer.</p>
+    <button class="learn-more-btn">Learn More</button>
+  </section>
+
+  <section id="learn">
+    <img src="https://cdn-icons-png.flaticon.com/512/2913/2913100.png" alt="Learn About Cancer" class="section-img" />
+    <h2>Learn About Cancer</h2>
+    <ul>
+      <li data-modal="understanding">Understanding Cancer</li>
+      <li data-modal="types">Types of Cancer</li>
+      <li data-modal="prevention">Prevention & Screening</li>
+      <li data-modal="treatment">Treatment Options</li>
+    </ul>
+  </section>
+
+  <section id="stories">
+    <img src="https://cdn-icons-png.flaticon.com/512/3227/3227049.png" alt="Real Stories" class="section-img" />
+    <h2>Real Stories</h2>
+    <div class="stories-carousel">
+      <div class="story active">
+        <p>"HopeCare gave me the strength to face my diagnosis. The community support was invaluable during my treatment."</p>
+        <div class="story-author">- Sarah, Breast Cancer Survivor</div>
+      </div>
+      <div class="story">
+        <p>"As a caregiver, the resources and guidance from HopeCare helped me support my husband through his journey."</p>
+        <div class="story-author">- Michael, Caregiver</div>
+      </div>
+      <div class="story">
+        <p>"The educational materials helped me understand my options and make informed decisions about my treatment."</p>
+        <div class="story-author">- David, Prostate Cancer Patient</div>
+      </div>
+      <div class="carousel-nav">
+        <div class="carousel-dot active" data-index="0"></div>
+        <div class="carousel-dot" data-index="1"></div>
+        <div class="carousel-dot" data-index="2"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="support">
+    <img src="https://cdn-icons-png.flaticon.com/512/3227/3227074.png" alt="Support and Resources" class="section-img" />
+    <h2>Support & Resources</h2>
+    <div class="resources-grid">
+      <div class="resource-card" data-modal="helplines">
+        <i class="fas fa-phone-alt"></i>
+        <h3>Helplines</h3>
+        <p>24/7 support from trained professionals</p>
+      </div>
+      <div class="resource-card" data-modal="specialists">
+        <i class="fas fa-user-md"></i>
+        <h3>Find a Specialist</h3>
+        <p>Connect with cancer experts near you</p>
+      </div>
+      <div class="resource-card" data-modal="financial">
+        <i class="fas fa-hand-holding-usd"></i>
+        <h3>Financial Aid</h3>
+        <p>Assistance with treatment costs</p>
+      </div>
+      <div class="resource-card" data-modal="mental-health">
+        <i class="fas fa-brain"></i>
+        <h3>Mental Health Support</h3>
+        <p>Counseling and therapy options</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <img src="https://cdn-icons-png.flaticon.com/512/3059/3059518.png" alt="Contact HopeCare" class="section-img" />
+    <h2>Contact Us</h2>
+    <form id="contactForm">
+      <input type="text" placeholder="Your Name" required />
+      <input type="email" placeholder="Your Email" required />
+      <textarea placeholder="Your Message" rows="4" required></textarea>
+      <button type="submit">Send Message <i class="fas fa-paper-plane"></i></button>
+    </form>
+  </section>
+
+  <footer>
+    <div class="social-links">
+      <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+      <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+      <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+    </div>
+    <p>&copy; 2025 HopeCare. All rights reserved.</p>
+  </footer>
+
+  <div class="back-to-top" title="Back to top">
+    <i class="fas fa-arrow-up"></i>
+  </div>
+
+  <!-- Modal Structure -->
+  <div class="modal" id="infoModal">
+    <div class="modal-content">
+      <span class="close-modal">&times;</span>
+      <h2 id="modalTitle">Modal Title</h2>
+      <div id="modalContent">
+        <p>Modal content will appear here.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Dark mode toggle
+    const themeToggle = document.querySelector('.theme-toggle');
+    const body = document.body;
+    
+    // Check for saved theme preference
+    const currentTheme = localStorage.getItem('theme');
+    if (currentTheme) {
+      body.classList.add(currentTheme);
+      updateThemeIcon();
+    }
+    
+    themeToggle.addEventListener('click', () => {
+      body.classList.toggle('dark-mode');
+      const theme = body.classList.contains('dark-mode') ? 'dark-mode' : '';
+      localStorage.setItem('theme', theme);
+      updateThemeIcon();
+    });
+    
+    function updateThemeIcon() {
+      const icon = themeToggle.querySelector('i');
+      if (body.classList.contains('dark-mode')) {
+        icon.classList.remove('fa-moon');
+        icon.classList.add('fa-sun');
+      } else {
+        icon.classList.remove('fa-sun');
+        icon.classList.add('fa-moon');
+      }
+    }
+    
+    // Back to top button
+    const backToTopBtn = document.querySelector('.back-to-top');
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        backToTopBtn.classList.add('visible');
+      } else {
+        backToTopBtn.classList.remove('visible');
+      }
+    });
+    
+    backToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+    
+    // Modal functionality
+    const modal = document.getElementById('infoModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalContent = document.getElementById('modalContent');
+    const closeModal = document.querySelector('.close-modal');
+    
+    // Modal content data
+    const modalData = {
+      'understanding': {
+        title: 'Understanding Cancer',
+        content: `<p>Cancer is a disease in which some of the body's cells grow uncontrollably and spread to other parts of the body. It can start almost anywhere in the human body, which is made up of trillions of cells.</p>
+        <p>Normally, human cells grow and multiply (through a process called cell division) to form new cells as the body needs them. When cells grow old or become damaged, they die, and new cells take their place.</p>
+        <p>When cancer develops, this orderly process breaks down. As cells become more and more abnormal, old or damaged cells survive when they should die, and new cells form when they are not needed. These extra cells can divide without stopping and may form growths called tumors.</p>`
+      },
+      'types': {
+        title: 'Types of Cancer',
+        content: `<p>There are more than 100 types of cancer. Types of cancer are usually named for the organs or tissues where the cancers form. Here are some common categories:</p>
+        <ul>
+          <li><strong>Carcinoma</strong> - cancers that begin in the skin or tissues that line or cover internal organs.</li>
+          <li><strong>Sarcoma</strong> - cancers that begin in bone, cartilage, fat, muscle, blood vessels, or other connective or supportive tissue.</li>
+          <li><strong>Leukemia</strong> - cancers that begin in blood-forming tissue such as the bone marrow.</li>
+          <li><strong>Lymphoma and myeloma</strong> - cancers that begin in the cells of the immune system.</li>
+          <li><strong>Central nervous system cancers</strong> - cancers that begin in the tissues of the brain and spinal cord.</li>
+        </ul>`
+      },
+      'prevention': {
+        title: 'Prevention & Screening',
+        content: `<p>You can reduce your risk of getting cancer by making healthy choices like:</p>
+        <ul>
+          <li>Maintaining a healthy weight</li>
+          <li>Eating a healthy diet with plenty of fruits and vegetables</li>
+          <li>Getting regular physical activity</li>
+          <li>Avoiding tobacco</li>
+          <li>Limiting alcohol consumption</li>
+          <li>Protecting your skin from the sun</li>
+          <li>Getting vaccinated against HPV and hepatitis B</li>
+        </ul>
+        <p>Regular screening tests can catch some cancers early, when treatment is most likely to be successful. Screening recommendations vary based on age, sex, and risk factors.</p>`
+      },
+      'treatment': {
+        title: 'Treatment Options',
+        content: `<p>Cancer treatment depends on the type of cancer, its stage, and the patient's overall health. Common treatments include:</p>
+        <ul>
+          <li><strong>Surgery</strong> - removing the cancerous tumor</li>
+          <li><strong>Chemotherapy</strong> - using drugs to kill cancer cells</li>
+          <li><strong>Radiation therapy</strong> - using high-energy rays to kill cancer cells</li>
+          <li><strong>Immunotherapy</strong> - boosting the body's natural defenses to fight cancer</li>
+          <li><strong>Targeted therapy</strong> - using drugs that target specific cancer cell vulnerabilities</li>
+          <li><strong>Hormone therapy</strong> - blocking hormones that fuel certain cancers</li>
+          <li><strong>Stem cell transplant</strong> - restoring blood-forming stem cells</li>
+        </ul>
+        <p>Many patients receive a combination of treatments. Palliative care is also important to manage symptoms and side effects.</p>`
+      },
+      'helplines': {
+        title: 'Cancer Helplines',
+        content: `<p>We provide 24/7 support through our network of trained professionals:</p>
+        <ul>
+          <li><strong>Main Support Line:</strong> 1-800-HOPE-CARE (1-800-467-3227)</li>
+          <li><strong>Crisis Counseling:</strong> Available 24/7 for urgent emotional support</li>
+          <li><strong>Specialist Connect:</strong> Get connected to oncology specialists</li>
+          <li><strong>Caregiver Support:</strong> Dedicated line for family members and caregivers</li>
+        </ul>
+        <p>All calls are confidential and free of charge. Our representatives can provide emotional support, answer questions about cancer, and help connect you with local resources.</p>`
+      },
+      'specialists': {
+        title: 'Find a Specialist',
+        content: `<p>Our specialist network includes top oncologists across the country. We can help you find:</p>
+        <ul>
+          <li>Medical oncologists</li>
+          <li>Radiation oncologists</li>
+          <li>Surgical oncologists</li>
+          <li>Pediatric oncologists</li>
+          <li>Oncology nurses</li>
+          <li>Palliative care specialists</li>
+        </ul>
+        <p>Use our online search tool or call our helpline to be matched with specialists in your area who accept your insurance. We can also help with second opinions and treatment center recommendations.</p>`
+      },
+      'financial': {
+        title: 'Financial Assistance',
+        content: `<p>Cancer treatment can be expensive. We offer several financial assistance programs:</p>
+        <ul>
+          <li><strong>Treatment Grants:</strong> Up to $5,000 for qualifying patients</li>
+          <li><strong>Medication Assistance:</strong> Help with costly prescriptions</li>
+          <li><strong>Transportation Aid:</strong> Gas cards and ride services for treatment visits</li>
+          <li><strong>Insurance Navigation:</strong> Help understanding and maximizing your coverage</li>
+          <li><strong>Fundraising Support:</strong> Guidance for setting up personal fundraising campaigns</li>
+        </ul>
+        <p>Our financial counselors can help you understand your options and apply for assistance. No one is denied support based on ability to pay.</p>`
+      },
+      'mental-health': {
+        title: 'Mental Health Support',
+        content: `<p>Cancer affects mental health as well as physical health. We offer:</p>
+        <ul>
+          <li><strong>Individual Counseling:</strong> With therapists specializing in cancer-related issues</li>
+          <li><strong>Support Groups:</strong> Both in-person and virtual options</li>
+          <li><strong>Mindfulness Programs:</strong> Meditation and stress reduction techniques</li>
+          <li><strong>Art Therapy:</strong> Creative expression for emotional healing</li>
+          <li><strong>Family Counseling:</strong> For couples and families affected by cancer</li>
+        </ul>
+        <p>All services are available on a sliding scale based on income. Many insurance plans are accepted. Ask about our free introductory sessions.</p>`
+      }
+    };
+    
+    // Open modal when clicking on learn items
+    document.querySelectorAll('[data-modal]').forEach(item => {
+      item.addEventListener('click', () => {
+        const modalId = item.getAttribute('data-modal');
+        if (modalData[modalId]) {
+          modalTitle.textContent = modalData[modalId].title;
+          modalContent.innerHTML = modalData[modalId].content;
+          modal.style.display = 'flex';
+          document.body.style.overflow = 'hidden'; // Prevent scrolling
+        }
+      });
+    });
+    
+    // Close modal
+    closeModal.addEventListener('click', () => {
+      modal.style.display = 'none';
+      document.body.style.overflow = 'auto';
+    });
+    
+    // Close modal when clicking outside content
+    window.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+      }
+    });
+    
+    // Stories carousel
+    const stories = document.querySelectorAll('.story');
+    const dots = document.querySelectorAll('.carousel-dot');
+    let currentIndex = 0;
+    
+    function showStory(index) {
+      stories.forEach(story => story.classList.remove('active'));
+      dots.forEach(dot => dot.classList.remove('active'));
+      
+      stories[index].classList.add('active');
+      dots[index].classList.add('active');
+      currentIndex = index;
+    }
+    
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        const index = parseInt(dot.getAttribute('data-index'));
+        showStory(index);
+      });
+    });
+    
+    // Auto-rotate stories
+    setInterval(() => {
+      let nextIndex = (currentIndex + 1) % stories.length;
+      showStory(nextIndex);
+    }, 5000);
+    
+    // Form submission
+    const contactForm = document.getElementById('contactForm');
+    contactForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Get form values
+      const name = this.querySelector('input[type="text"]').value;
+      const email = this.querySelector('input[type="email"]').value;
+      const message = this.querySelector('textarea').value;
+      
+      // In a real application, you would send this data to a server
+      console.log('Form submitted:', { name, email, message });
+      
+      // Show success message
+      modalTitle.textContent = 'Thank You!';
+      modalContent.innerHTML = `<p>Thank you for reaching out, ${name}!</p>
+        <p>We've received your message and will get back to you soon at ${email}.</p>
+        <p>In the meantime, you might find helpful information in our <a href="#support">Resources</a> section.</p>`;
+      modal.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+      
+      // Reset form
+      this.reset();
+    });
+    
+    // Smooth scrolling for navigation
+    document.querySelectorAll('nav a').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        const targetId = this.getAttribute('href');
+        const targetElement = document.querySelector(targetId);
+        
+        window.scrollTo({
+          top: targetElement.offsetTop - 20,
+          behavior: 'smooth'
+        });
+        
+        // Update URL without reloading
+        history.pushState(null, null, targetId);
+      });
+    });
+    
+    // Animate sections on load
+    window.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('section').forEach(section => {
+        section.style.opacity = 1;
+        section.style.transform = 'translateY(0)';
+      });
+      
+      // Add hover effect to sections after load
+      setTimeout(() => {
+        document.querySelectorAll('section').forEach(section => {
+          section.style.transition = 'all 0.3s';
+        });
+      }, 1000);
+    });
+  </script>
+</body>
+</html>
